@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://bvwytyx2eobtu"]
+
+[ext_resource type="AudioStream" uid="uid://o8dxukt6vc4v" path="res://assets/music/NeonMarsh.ogg" id="1_fcmcm"]
+
+[node name="NeonMarshPlayer" type="AudioStreamPlayer2D" unique_id=1362842750]
+stream = ExtResource("1_fcmcm")
