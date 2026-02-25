@@ -12,3 +12,9 @@ script = ExtResource("1_h3dka")
 [node name="Metronome" type="Node2D" parent="." unique_id=2048076887]
 script = ExtResource("3_d1hwj")
 metadata/_custom_type_script = "uid://dxuhgtqrlgvde"
+
+[node name="RichTextLabel" type="RichTextLabel" parent="." unique_id=319515225]
+offset_left = 453.0
+offset_top = 245.0
+offset_right = 493.0
+offset_bottom = 285.0
