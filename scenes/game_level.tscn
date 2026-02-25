@@ -1,9 +1,14 @@
 [gd_scene format=3 uid="uid://dlxtdflt08453"]
 
 [ext_resource type="Script" uid="uid://mgh2wqhg7mon" path="res://scripts/GameLevel/game_level.gd" id="1_h3dka"]
-[ext_resource type="PackedScene" uid="uid://bvwytyx2eobtu" path="res://scenes/neon_marsh_player.tscn" id="2_6fv2f"]
+[ext_resource type="PackedScene" path="res://scenes/neon_marsh_player.tscn" id="2_6fv2f"]
+[ext_resource type="Script" uid="uid://dxuhgtqrlgvde" path="res://scripts/Metronome/metronome.gd" id="3_d1hwj"]
 
 [node name="GameLevel" type="Node2D" unique_id=1912978141]
 script = ExtResource("1_h3dka")
 
 [node name="NeonMarshPlayer" parent="." unique_id=1362842750 instance=ExtResource("2_6fv2f")]
+
+[node name="Metronome" type="Node2D" parent="." unique_id=2048076887]
+script = ExtResource("3_d1hwj")
+metadata/_custom_type_script = "uid://dxuhgtqrlgvde"

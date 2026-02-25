@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://c7qe6mltyrtdd"]
+
+[ext_resource type="Script" uid="uid://dxuhgtqrlgvde" path="res://scripts/Metronome/metronome.gd" id="1_h5lc0"]
+
+[node name="Metronome" type="Node2D" unique_id=626184421]
+script = ExtResource("1_h5lc0")
