@@ -13,7 +13,7 @@ func _ready() -> void:
 	LabelScene.text = str(current_beat)
 	MetronomeScene.beat_event.connect(_on_beat_event_signal);
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed('ui_select'):
 		if !NeonMarshPlayerScene.playing:
 			NeonMarshPlayerScene.play()
