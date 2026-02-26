@@ -5,6 +5,7 @@ extends Node2D
 @onready var MetronomeScene: Metronome = $Metronome
 # This is only temporary
 @onready var LabelScene: RichTextLabel = $RichTextLabel
+var ComposerClass := preload("res://scripts/Composer/composer.gd")
 
 var current_beat: int
 
