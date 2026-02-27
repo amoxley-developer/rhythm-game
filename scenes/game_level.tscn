@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://mgh2wqhg7mon" path="res://scripts/GameLevel/game_level.gd" id="1_h3dka"]
 [ext_resource type="PackedScene" path="res://scenes/neon_marsh_player.tscn" id="2_6fv2f"]
 [ext_resource type="Script" uid="uid://dxuhgtqrlgvde" path="res://scripts/Metronome/metronome.gd" id="3_d1hwj"]
+[ext_resource type="Script" uid="uid://r8bv710k5vge" path="res://scripts/Composer/composer.gd" id="4_3tmo4"]
 
 [node name="GameLevel" type="Node2D" unique_id=1912978141]
 script = ExtResource("1_h3dka")
@@ -18,3 +19,7 @@ offset_left = 453.0
 offset_top = 245.0
 offset_right = 493.0
 offset_bottom = 285.0
+
+[node name="Composer" type="Node" parent="." unique_id=1660182422]
+script = ExtResource("4_3tmo4")
+metadata/_custom_type_script = "uid://r8bv710k5vge"
