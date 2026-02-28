@@ -31,8 +31,9 @@ func _on_beat_event_signal(new_current_beat: int) -> void:
 	LabelScene.text = str(current_beat)
 
 func judge(active_beat: int) -> bool:
-	print('current hit', ComposerNode.current_hit)
-	print('active beat', active_beat)
+	print('current hit: ', ComposerNode.current_hit)
+	print('active beat: ', active_beat)
+	print('Current beat: ', MetronomeScene.current_beat)
 	return ComposerNode.current_hit == active_beat
 
 	
