@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://bo6v25tt6i2gn"]
+
+[ext_resource type="Texture2D" uid="uid://cy624lrnr8pe6" path="res://assets/sprites/BeatTargetSprite.png" id="1_fq4i6"]
+
+[node name="BeatTargetSprite" type="Sprite2D" unique_id=294637003]
+texture = ExtResource("1_fq4i6")

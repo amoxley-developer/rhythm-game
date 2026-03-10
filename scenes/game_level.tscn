@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" path="res://scenes/neon_marsh_player.tscn" id="2_6fv2f"]
 [ext_resource type="Script" uid="uid://dxuhgtqrlgvde" path="res://scripts/Metronome/metronome.gd" id="3_d1hwj"]
 [ext_resource type="Script" uid="uid://r8bv710k5vge" path="res://scripts/Composer/composer.gd" id="4_3tmo4"]
+[ext_resource type="PackedScene" uid="uid://bo6v25tt6i2gn" path="res://scenes/beat_target_sprite.tscn" id="5_hjd5e"]
 
 [node name="GameLevel" type="Node2D" unique_id=1912978141]
 script = ExtResource("1_h3dka")
@@ -14,12 +15,9 @@ script = ExtResource("1_h3dka")
 script = ExtResource("3_d1hwj")
 metadata/_custom_type_script = "uid://dxuhgtqrlgvde"
 
-[node name="RichTextLabel" type="RichTextLabel" parent="." unique_id=319515225]
-offset_left = 453.0
-offset_top = 245.0
-offset_right = 493.0
-offset_bottom = 285.0
-
 [node name="Composer" type="Node" parent="." unique_id=1660182422]
 script = ExtResource("4_3tmo4")
 metadata/_custom_type_script = "uid://r8bv710k5vge"
+
+[node name="BeatTargetSprite" parent="." unique_id=294637003 instance=ExtResource("5_hjd5e")]
+position = Vector2(573, 306)

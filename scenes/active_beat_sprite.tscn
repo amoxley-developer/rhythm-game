@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://d3bqeja5r442y"]
+
+[ext_resource type="Texture2D" uid="uid://bx8g3b2asepnc" path="res://assets/sprites/ActiveBeatSprite.png" id="1_qooim"]
+
+[node name="active_beat_sprite" type="Sprite2D" unique_id=2005772973]
+texture = ExtResource("1_qooim")

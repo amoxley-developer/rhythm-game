@@ -7,7 +7,8 @@ var current_hit_idx := 0
 
 func _ready() -> void:
 	for i in range(0, 600, 4):
-		beats_to_hit.append(i)
+		if i >= 36:
+			beats_to_hit.append(i)
 	current_hit = beats_to_hit[current_hit_idx]
 
 func update_current_hit(current_beat: int) -> void:
