@@ -5,9 +5,13 @@ extends Node2D
 @onready var MetronomeScene: Metronome = $Metronome
 @onready var ComposerNode := $Composer
 @onready var BeatTargetSpriteScene := $BeatTargetSprite
+var ActiveBeatScene := preload("res://scenes/active_beat_sprite.tscn")
 
+
+const TIME_TO_BEAT_TARGET := 2.0
 var current_beat: int
 var beat_target_sprite_pos: Vector2
+var active_beat_sprites: Array
 
 func _ready() -> void:
 	current_beat = MetronomeScene.current_beat
@@ -32,14 +36,27 @@ func _on_beat_event_signal(new_current_beat: int) -> void:
 	ComposerNode.update_current_hit(current_beat)
 
 func handle_active_beat_sprite() -> void:
-	# SEPARATE: Add property in the active beat sprite to record the active beat it is associated with
-	# check to see if it is time to create an active beat sprite
-		# look at the composer
-	# create the active beat sprite node
-		# set the y pos to beat target sprite
-		# set the x pos to ?
+	# get the next active beat
+	# FIX THIS: handle first beat edge case/ probably just set these variables in the ready function 
+	var last_active_beat_sprite = active_beat_sprites[-1]
+	var last_active_beat_index = last_active_beat_sprite.last_active_beat_index
+	var next_active_beat: int
+	if last_active_beat_index+1 in ComposerNode.beats_to_hit:
+		next_active_beat = ComposerNode.beats_to_hit[last_active_beat_index+1]
 
-	# set the sprite to move to be in the center of target sprite at active beat 
+	# check to see if it is time to create an active beat sprite
+	if next_active_beat != null:
+		var time_until_next_beat := next_active_beat * MetronomeScene.SECONDS_PER_BEAT
+		if time_until_next_beat <= TIME_TO_BEAT_TARGET:
+			var active_beat_sprite := ActiveBeatScene.instantiate()
+			active_beat_sprite.active_beat = next_active_beat
+			active_beat_sprite.active_beat_index = last_active_beat_index+1
+			# create the active beat sprite node
+				# set the y pos to beat target sprite
+				# set the x pos to ? off screen
+
+	# set the sprite to move to be in the center of target sprite at active beat \
+		# movement time should use the time_until_next beat
 
 	return
 
