@@ -12,11 +12,15 @@ const TIME_TO_BEAT_TARGET := 2.0
 var current_beat: int
 var beat_target_sprite_pos: Vector2
 var active_beat_sprites: Array
+var last_active_beat_sprite: Node
+var last_active_beat_index: int
+var next_active_beat: int
 
 func _ready() -> void:
 	current_beat = MetronomeScene.current_beat
 	MetronomeScene.beat_event.connect(_on_beat_event_signal);
 	beat_target_sprite_pos = BeatTargetSpriteScene.position
+	# set last_active_beat_sprite, last_active_beat_index, and next_active_beat
 
 func _process(_delta: float) -> void:
 	var current_time := NeonMarshPlayerScene.get_playback_position()
@@ -26,35 +30,36 @@ func _process(_delta: float) -> void:
 		else:
 			print(judge(MetronomeScene.active_beat(current_time)))
 			# if judge is true destroy the active beat sprite
+			# also destroy if the sprite is outside of viewport
 
 	if NeonMarshPlayerScene.playing:
 		MetronomeScene.update_beat(current_time)
+
+	if next_active_beat != null:
+		var time_until_next_beat := next_active_beat * MetronomeScene.SECONDS_PER_BEAT
+		if time_until_next_beat <= TIME_TO_BEAT_TARGET:
+				handle_create_active_beat_sprite(time_until_next_beat)
  
 func _on_beat_event_signal(new_current_beat: int) -> void:
 	current_beat = new_current_beat
 	# update the current active beat sprite
 	ComposerNode.update_current_hit(current_beat)
 
-func handle_active_beat_sprite() -> void:
-	# get the next active beat
-	# FIX THIS: handle first beat edge case/ probably just set these variables in the ready function 
-	var last_active_beat_sprite = active_beat_sprites[-1]
-	var last_active_beat_index = last_active_beat_sprite.last_active_beat_index
-	var next_active_beat: int
+func handle_create_active_beat_sprite(time_until_next_beat: float) -> void:
+	var active_beat_sprite := ActiveBeatScene.instantiate()
+	active_beat_sprite.active_beat = next_active_beat
+	active_beat_sprite.active_beat_index = last_active_beat_index+1
+	add_child(active_beat_sprite)
+	active_beat_sprites.append(active_beat_sprite)
+	# create the active beat sprite node
+		# set the y pos to beat target sprite
+		# set the x pos to ? off screen
+
+	# set the last and next active beats
+	last_active_beat_sprite = active_beat_sprites[-1]
+	last_active_beat_index = last_active_beat_sprite.last_active_beat_index
 	if last_active_beat_index+1 in ComposerNode.beats_to_hit:
 		next_active_beat = ComposerNode.beats_to_hit[last_active_beat_index+1]
-
-	# check to see if it is time to create an active beat sprite
-	if next_active_beat != null:
-		var time_until_next_beat := next_active_beat * MetronomeScene.SECONDS_PER_BEAT
-		if time_until_next_beat <= TIME_TO_BEAT_TARGET:
-			var active_beat_sprite := ActiveBeatScene.instantiate()
-			active_beat_sprite.active_beat = next_active_beat
-			active_beat_sprite.active_beat_index = last_active_beat_index+1
-			# create the active beat sprite node
-				# set the y pos to beat target sprite
-				# set the x pos to ? off screen
-
 	# set the sprite to move to be in the center of target sprite at active beat \
 		# movement time should use the time_until_next beat
 
