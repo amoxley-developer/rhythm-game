@@ -65,7 +65,7 @@ func handle_create_active_beat_sprite(time_until_next_beat: float) -> void:
 	var x_distance: float = active_beat_sprite.position.x - BeatTargetSpriteScene.position.x
 	var speed := x_distance/time_until_next_beat
 	active_beat_sprite.velocity = Vector2.LEFT * speed
-	active_beat_sprite.move_and_slide()
+	active_beat_sprite.can_move = true
 	return
 
 func judge(active_beat: int) -> bool:
