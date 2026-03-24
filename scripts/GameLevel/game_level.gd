@@ -21,6 +21,8 @@ func _ready() -> void:
 	MetronomeScene.beat_event.connect(_on_beat_event_signal);
 	beat_target_sprite_pos = BeatTargetSpriteScene.position
 	# set last_active_beat_sprite, last_active_beat_index, and next_active_beat
+	next_active_beat = ComposerNode.beats_to_hit[0]
+	last_active_beat_index = -1
 
 func _process(_delta: float) -> void:
 	var current_time := NeonMarshPlayerScene.get_playback_position()
@@ -37,7 +39,7 @@ func _process(_delta: float) -> void:
 
 	if next_active_beat != null:
 		var time_until_next_beat := next_active_beat * MetronomeScene.SECONDS_PER_BEAT
-		if time_until_next_beat <= TIME_TO_BEAT_TARGET:
+		if time_until_next_beat - current_time <= TIME_TO_BEAT_TARGET:
 				handle_create_active_beat_sprite(time_until_next_beat)
  
 func _on_beat_event_signal(new_current_beat: int) -> void:
@@ -46,23 +48,24 @@ func _on_beat_event_signal(new_current_beat: int) -> void:
 	ComposerNode.update_current_hit(current_beat)
 
 func handle_create_active_beat_sprite(time_until_next_beat: float) -> void:
-	var active_beat_sprite := ActiveBeatScene.instantiate()
+	var active_beat_sprite :ActiveBeatSprite = ActiveBeatScene.instantiate()
 	active_beat_sprite.active_beat = next_active_beat
 	active_beat_sprite.active_beat_index = last_active_beat_index+1
+	active_beat_sprite.position = Vector2(1100, BeatTargetSpriteScene.position.y)
 	add_child(active_beat_sprite)
 	active_beat_sprites.append(active_beat_sprite)
-	# create the active beat sprite node
-		# set the y pos to beat target sprite
-		# set the x pos to ? off screen
 
 	# set the last and next active beats
 	last_active_beat_sprite = active_beat_sprites[-1]
-	last_active_beat_index = last_active_beat_sprite.last_active_beat_index
+	last_active_beat_index = last_active_beat_sprite.active_beat_index
 	if last_active_beat_index+1 in ComposerNode.beats_to_hit:
 		next_active_beat = ComposerNode.beats_to_hit[last_active_beat_index+1]
-	# set the sprite to move to be in the center of target sprite at active beat \
-		# movement time should use the time_until_next beat
 
+	# set the sprite to move to be in the center of target sprite at active beat \
+	var x_distance: float = active_beat_sprite.position.x - BeatTargetSpriteScene.position.x
+	var speed := x_distance/time_until_next_beat
+	active_beat_sprite.velocity = Vector2.LEFT * speed
+	active_beat_sprite.move_and_slide()
 	return
 
 func judge(active_beat: int) -> bool:

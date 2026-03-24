@@ -20,4 +20,4 @@ script = ExtResource("4_3tmo4")
 metadata/_custom_type_script = "uid://r8bv710k5vge"
 
 [node name="BeatTargetSprite" parent="." unique_id=294637003 instance=ExtResource("5_hjd5e")]
-position = Vector2(573, 306)
+position = Vector2(575, 306)
