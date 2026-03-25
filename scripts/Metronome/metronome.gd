@@ -2,7 +2,7 @@ class_name Metronome
 extends Node2D
 
 signal beat_event(current_beat: float)
-const BPM := 132 * 2
+const BPM := 132
 const SECONDS_PER_BEAT := 60.0/BPM 
 const ACTIVE_WINDOW := 0.09
 var current_beat := 0

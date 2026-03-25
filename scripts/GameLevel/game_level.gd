@@ -15,6 +15,7 @@ var active_beat_sprites: Array
 var last_active_beat_sprite: Node
 var last_active_beat_index: int
 var next_active_beat: int
+var last_beat_created := -1
 
 func _ready() -> void:
 	current_beat = MetronomeScene.current_beat
@@ -38,9 +39,10 @@ func _process(_delta: float) -> void:
 		MetronomeScene.update_beat(current_time)
 
 	if next_active_beat != null:
-		var time_until_next_beat := next_active_beat * MetronomeScene.SECONDS_PER_BEAT
-		if time_until_next_beat - current_time <= TIME_TO_BEAT_TARGET:
-				handle_create_active_beat_sprite(time_until_next_beat)
+		var time_until_next_beat := (next_active_beat * MetronomeScene.SECONDS_PER_BEAT) - current_time
+		if time_until_next_beat <= TIME_TO_BEAT_TARGET and last_beat_created != next_active_beat:
+			last_beat_created = next_active_beat
+			handle_create_active_beat_sprite(time_until_next_beat)
  
 func _on_beat_event_signal(new_current_beat: int) -> void:
 	current_beat = new_current_beat
@@ -58,7 +60,7 @@ func handle_create_active_beat_sprite(time_until_next_beat: float) -> void:
 	# set the last and next active beats
 	last_active_beat_sprite = active_beat_sprites[-1]
 	last_active_beat_index = last_active_beat_sprite.active_beat_index
-	if last_active_beat_index+1 in ComposerNode.beats_to_hit:
+	if last_active_beat_index+1 <= len(ComposerNode.beats_to_hit):
 		next_active_beat = ComposerNode.beats_to_hit[last_active_beat_index+1]
 
 	# set the sprite to move to be in the center of target sprite at active beat \
